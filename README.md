@@ -1,6 +1,6 @@
 # OS-Pins
 
-Next.js (JSX) landing page for the OS-Pins platform.
+Next.js  landing page for the OS-Pins platform.
 
 ## Scripts
 
