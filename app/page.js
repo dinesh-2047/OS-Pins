@@ -407,7 +407,7 @@ export default function Home() {
                     <p className="text-sm font-medium text-purple-800">Join us! 🎉</p>
                   </div>
                   <div className="absolute -bottom-4 right-4 sm:right-8 bg-gradient-to-r from-pink-400 to-purple-500 px-4 py-2 rounded-2xl shadow-lg">
-                    <p className="text-sm font-medium text-white">Let's code! 💻</p>
+                    <p className="text-sm font-medium text-white">Let&apos;s code! 💻</p>
                   </div>
                 </div>
               </div>
