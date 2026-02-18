@@ -552,10 +552,16 @@ export default function Home() {
             <div>
               <h4 className={`text-lg font-bold mb-4 ${nunito.className}`}>Legal</h4>
               <ul className={`space-y-2 ${inter.className} text-purple-200`}>
-                {['Privacy Policy', 'Terms of Service', 'Cookie Policy', 'Code of Conduct', 'Contact'].map((link) => (
-                  <li key={link}>
-                    <a href="#" className="hover:text-pink-300 transition-colors duration-300">
-                      {link}
+                {[
+                  { name: 'Privacy Policy', href: '#' },
+                  { name: 'Terms of Service', href: '#' },
+                  { name: 'Cookie Policy', href: '#' },
+                  { name: 'Code of Conduct', href: '#' },
+                  { name: 'Contact', href: '/contact' }
+                ].map((item) => (
+                  <li key={item.name}>
+                    <a href={item.href} className="hover:text-pink-300 transition-colors duration-300">
+                      {item.name}
                     </a>
                   </li>
                 ))}
