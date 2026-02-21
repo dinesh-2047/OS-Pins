@@ -553,7 +553,7 @@ export default function Home() {
               <h4 className={`text-lg font-bold mb-4 ${nunito.className}`}>Legal</h4>
               <ul className={`space-y-2 ${inter.className} text-purple-200`}>
                 {[
-                  { name: 'Privacy Policy', href: '#' },
+                  { name: 'Privacy Policy', href: '/privacy-policy' },
                   { name: 'Terms of Service', href: '#' },
                   { name: 'Cookie Policy', href: '#' },
                   { name: 'Code of Conduct', href: '#' },
@@ -575,9 +575,13 @@ export default function Home() {
                 © 2024 OS Pins. Made with <span className="text-pink-300 animate-pulse">💜</span> by the community
               </p>
               <div className="flex gap-6">
-                {['Terms', 'Privacy', 'Cookies'].map((link) => (
-                  <a key={link} href="#" className="text-purple-300 hover:text-pink-300 transition-colors duration-300">
-                    {link}
+                {[
+                  { name: 'Terms', href: '#' },
+                  { name: 'Privacy', href: '/privacy-policy' },
+                  { name: 'Cookies', href: '#' }
+                ].map((item) => (
+                  <a key={item.name} href={item.href} className="text-purple-300 hover:text-pink-300 transition-colors duration-300">
+                    {item.name}
                   </a>
                 ))}
               </div>
