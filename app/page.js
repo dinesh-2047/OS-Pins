@@ -554,7 +554,7 @@ export default function Home() {
               <ul className={`space-y-2 ${inter.className} text-purple-200`}>
                 {[
                   { name: 'Privacy Policy', href: '/privacy-policy' },
-                  { name: 'Terms of Service', href: '#' },
+                  { name: 'Terms of Service', href: 'terms-of-service' },
                   { name: 'Cookie Policy', href: '#' },
                   { name: 'Code of Conduct', href: '#' },
                   { name: 'Contact', href: '/contact' }
