@@ -555,8 +555,8 @@ export default function Home() {
                 {[
                   { name: 'Privacy Policy', href: '/privacy-policy' },
                   { name: 'Terms of Service', href: '#' },
-                  { name: 'Cookie Policy', href: 'cookie-policy' },
-                  { name: 'Code of Conduct', href: '#' },
+                  { name: 'Cookie Policy', href: '#' },
+                  { name: 'Code of Conduct', href: 'code-of-conduct' },
                   { name: 'Contact', href: '/contact' }
                 ].map((item) => (
                   <li key={item.name}>
