@@ -101,17 +101,19 @@ const featuredBadges = [
 export default function Home() {
   const [scrolled, setScrolled] = useState(false);
   const [activeBadge, setActiveBadge] = useState(null);
+  const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 20);
+      setMenuOpen(false);
     };
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  }, []); 
 
   return (
-    <main className={`min-h-screen bg-gradient-to-br from-pink-50 via-purple-50 to-blue-50 ${inter.variable} ${fredoka.variable} ${nunito.variable} relative overflow-hidden`}>
+    <main className={`min-h-screen bg-gradient-to-br from-pink-50 via-purple-50 to-blue-50 ${inter.variable} ${fredoka.variable} ${nunito.variable} relative overflow-x-hidden`}>
       {/* Background decorative elements */}
       <div className="fixed inset-0 pointer-events-none overflow-hidden">
         {/* Floating clouds */}
@@ -134,6 +136,15 @@ export default function Home() {
         <div className="absolute bottom-40 right-10 w-16 h-16 border-4 border-yellow-200/50 rounded-2xl -rotate-12" />
       </div>
 
+      {/* Mobile menu backdrop */}
+      {menuOpen && (
+        <div
+          className="fixed inset-0 z-40 bg-black/20 backdrop-blur-sm md:hidden"
+          onClick={() => setMenuOpen(false)}
+          aria-hidden="true"
+        />
+      )}
+
       {/* Header/Navigation */}
       <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         scrolled ? 'py-3 bg-white/90 backdrop-blur-md shadow-lg shadow-purple-100/50' : 'py-5 bg-transparent'
@@ -151,6 +162,7 @@ export default function Home() {
             </h1>
           </div>
 
+          {/* Desktop nav links */}
           <div className="hidden md:flex items-center gap-8">
             {navLinks.map((link) => (
               <a
@@ -163,17 +175,59 @@ export default function Home() {
             ))}
           </div>
 
-          <div className="flex items-center gap-3">
-            <button className={`${nunito.className} font-semibold px-5 py-2.5 rounded-full bg-gradient-to-r from-pink-400 to-purple-500 text-white shadow-lg shadow-purple-300/50 hover:shadow-purple-300/80 hover:-translate-y-0.5 transition-all duration-300 text-sm sm:text-base sm:px-6 sm:py-3`}>
+          <div className="flex items-center gap-2 sm:gap-3">
+            {/* CTA hidden on mobile to avoid crowding the hamburger button */}
+            <button className={`hidden sm:inline-flex items-center ${nunito.className} font-semibold px-5 py-2.5 rounded-full bg-gradient-to-r from-pink-400 to-purple-500 text-white shadow-lg shadow-purple-300/50 hover:shadow-purple-300/80 hover:-translate-y-0.5 transition-all duration-300 text-sm sm:text-base sm:px-6 sm:py-3`}>
               Get Started
             </button>
-            <button className="md:hidden p-2 hover:bg-white/20 rounded-full transition-colors">
-              <svg className="w-6 h-6 text-purple-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-              </svg>
+            {/* Hamburger / close button — mobile only */}
+            <button
+              className="md:hidden p-2 hover:bg-purple-100/60 rounded-full transition-colors"
+              onClick={() => setMenuOpen((prev) => !prev)}
+              aria-label={menuOpen ? 'Close menu' : 'Open menu'}
+              aria-expanded={menuOpen}
+            >
+              {menuOpen ? (
+                <svg className="w-6 h-6 text-purple-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              ) : (
+                <svg className="w-6 h-6 text-purple-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                </svg>
+              )}
             </button>
           </div>
         </nav>
+
+        {/* Mobile dropdown menu */}
+        <div
+          className={`md:hidden overflow-hidden transition-all duration-300 ease-in-out ${
+            menuOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
+          }`}
+        >
+          <div className="container mx-auto px-4 pb-4 pt-2">
+            <div className="bg-white/95 backdrop-blur-md rounded-2xl shadow-xl shadow-purple-100/60 border border-purple-100 overflow-hidden">
+              {navLinks.map((link, index) => (
+                <a
+                  key={link}
+                  href="#"
+                  onClick={() => setMenuOpen(false)}
+                  className={`flex items-center px-5 py-3.5 ${inter.className} font-medium text-purple-700 hover:text-pink-500 hover:bg-pink-50/60 transition-colors duration-200 ${
+                    index !== navLinks.length - 1 ? 'border-b border-purple-100/70' : ''
+                  }`}
+                >
+                  {link}
+                </a>
+              ))}
+              <div className="px-4 py-3">
+                <button className={`w-full ${nunito.className} font-semibold py-2.5 rounded-full bg-gradient-to-r from-pink-400 to-purple-500 text-white shadow-md shadow-purple-300/40 hover:shadow-purple-300/70 transition-all duration-300`}>
+                  Get Started
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
       </header>
 
       {/* Hero Section */}
@@ -191,10 +245,12 @@ export default function Home() {
               Join thousands of developers showcasing their achievements with beautiful, customizable badge collections
             </p>
             <div className="flex flex-wrap gap-4">
-              <button className={`${nunito.className} font-semibold px-6 sm:px-8 py-3 sm:py-4 rounded-full bg-gradient-to-r from-pink-400 to-purple-500 text-white text-base sm:text-lg shadow-xl shadow-purple-300/50 hover:shadow-purple-300/80 hover:-translate-y-1 transition-all duration-300 group relative overflow-hidden`}>
-                <span className="relative z-10">Get Started</span>
-                <span className="absolute inset-0 bg-gradient-to-r from-purple-500 to-pink-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-              </button>
+              <a href="/signin">
+                <button className={`${nunito.className} font-semibold px-6 sm:px-8 py-3 sm:py-4 rounded-full bg-gradient-to-r from-pink-400 to-purple-500 text-white text-base sm:text-lg shadow-xl shadow-purple-300/50 hover:shadow-purple-300/80 hover:-translate-y-1 transition-all duration-300 group relative overflow-hidden`}>
+                  <span className="relative z-10">Get Started</span>
+                  <span className="absolute inset-0 bg-gradient-to-r from-purple-500 to-pink-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                </button>
+              </a>
               <button className={`${nunito.className} font-semibold px-6 sm:px-8 py-3 sm:py-4 rounded-full border-2 border-purple-400 text-purple-700 text-base sm:text-lg hover:bg-purple-50 hover:border-purple-500 transition-all duration-300`}>
                 View Badges
               </button>
@@ -554,9 +610,9 @@ export default function Home() {
               <ul className={`space-y-2 ${inter.className} text-purple-200`}>
                 {[
                   { name: 'Privacy Policy', href: '/privacy-policy' },
-                  { name: 'Terms of Service', href: '#' },
-                  { name: 'Cookie Policy', href: '#' },
-                  { name: 'Code of Conduct', href: 'code-of-conduct' },
+                  { name: 'Terms of Service', href: '/terms-of-service' },
+                  { name: 'Cookie Policy', href: 'cookie-policy' },
+                  { name: 'Code of Conduct', href: '#' },
                   { name: 'Contact', href: '/contact' }
                 ].map((item) => (
                   <li key={item.name}>
@@ -576,9 +632,9 @@ export default function Home() {
               </p>
               <div className="flex gap-6">
                 {[
-                  { name: 'Terms', href: '#' },
+                  { name: 'Terms', href: '/terms-of-service' },
                   { name: 'Privacy', href: '/privacy-policy' },
-                  { name: 'Cookies', href: '#' }
+                  { name: 'Cookies', href: '/cookie-policy' }
                 ].map((item) => (
                   <a key={item.name} href={item.href} className="text-purple-300 hover:text-pink-300 transition-colors duration-300">
                     {item.name}
