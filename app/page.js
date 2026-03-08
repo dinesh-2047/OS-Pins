@@ -245,10 +245,12 @@ export default function Home() {
               Join thousands of developers showcasing their achievements with beautiful, customizable badge collections
             </p>
             <div className="flex flex-wrap gap-4">
-              <button className={`${nunito.className} font-semibold px-6 sm:px-8 py-3 sm:py-4 rounded-full bg-gradient-to-r from-pink-400 to-purple-500 text-white text-base sm:text-lg shadow-xl shadow-purple-300/50 hover:shadow-purple-300/80 hover:-translate-y-1 transition-all duration-300 group relative overflow-hidden`}>
-                <span className="relative z-10">Get Started</span>
-                <span className="absolute inset-0 bg-gradient-to-r from-purple-500 to-pink-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-              </button>
+              <a href="/signin">
+                <button className={`${nunito.className} font-semibold px-6 sm:px-8 py-3 sm:py-4 rounded-full bg-gradient-to-r from-pink-400 to-purple-500 text-white text-base sm:text-lg shadow-xl shadow-purple-300/50 hover:shadow-purple-300/80 hover:-translate-y-1 transition-all duration-300 group relative overflow-hidden`}>
+                  <span className="relative z-10">Get Started</span>
+                  <span className="absolute inset-0 bg-gradient-to-r from-purple-500 to-pink-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                </button>
+              </a>
               <button className={`${nunito.className} font-semibold px-6 sm:px-8 py-3 sm:py-4 rounded-full border-2 border-purple-400 text-purple-700 text-base sm:text-lg hover:bg-purple-50 hover:border-purple-500 transition-all duration-300`}>
                 View Badges
               </button>
@@ -608,7 +610,7 @@ export default function Home() {
               <ul className={`space-y-2 ${inter.className} text-purple-200`}>
                 {[
                   { name: 'Privacy Policy', href: '/privacy-policy' },
-                  { name: 'Terms of Service', href: '#' },
+                  { name: 'Terms of Service', href: '/terms-of-service' },
                   { name: 'Cookie Policy', href: 'cookie-policy' },
                   { name: 'Code of Conduct', href: '#' },
                   { name: 'Contact', href: '/contact' }
@@ -630,9 +632,9 @@ export default function Home() {
               </p>
               <div className="flex gap-6">
                 {[
-                  { name: 'Terms', href: '#' },
+                  { name: 'Terms', href: '/terms-of-service' },
                   { name: 'Privacy', href: '/privacy-policy' },
-                  { name: 'Cookies', href: '#' }
+                  { name: 'Cookies', href: '/cookie-policy' }
                 ].map((item) => (
                   <a key={item.name} href={item.href} className="text-purple-300 hover:text-pink-300 transition-colors duration-300">
                     {item.name}
